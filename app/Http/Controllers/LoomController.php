@@ -94,85 +94,81 @@ class LoomController extends Controller
 
         if (isset($input['fromDate']) && isset($input['toDate'])) {
 
-            if (!($input['shift'])) {
-
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where('title', $input['loom'])->get();
-            } else {
+            if (isset($input['shift'])) {
                 $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
                     ->where([
                         ['title', $input['loom']],
                         ['shift', $input['shift']],
                     ])->get();
-            }
-
-            if (!($input['style'])) {
-
+            } else {
                 $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
                     ->where('title', $input['loom'])->get();
-            } else {
-                // dd('s');
+            }
+
+            if (isset($input['style'])) {
                 $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
                     ->where([
                         ['title', $input['loom']],
                         ['style', $input['style']],
                     ])->get();
-            }
-            if (!($input['beam'])) {
+            } else {
 
                 $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
                     ->where('title', $input['loom'])->get();
-            } else {
-
+            }
+            if (isset($input['beam'])) {
                 $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
                     ->where([
                         ['title', $input['loom']],
                         ['beam', $input['beam']],
                     ])->get();
+            } else {
+                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
+                    ->where('title', $input['loom'])->get();
             }
         } else {
 
-            if (!($input['shift'])) {
-                $fetched_looms = Loom::where([
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            } else {
+            if (isset($input['shift'])) {
                 $fetched_looms = Loom::where([
                     ['shift', $input['shift']],
                     ['title', $input['loom']],
                     ['date', 'LIKE', '%' . $input['month'] . '%'],
                     ['date', 'LIKE', '%' . $input['year'] . '%']
                 ])->get();
-            }
-
-
-            if (!($input['style'])) {
+            } else {
                 $fetched_looms = Loom::where([
                     ['title', $input['loom']],
                     ['date', 'LIKE', '%' . $input['month'] . '%'],
                     ['date', 'LIKE', '%' . $input['year'] . '%']
                 ])->get();
-            } else {
+            }
+
+
+            if (isset($input['style'])) {
                 $fetched_looms = Loom::where([
                     ['style', $input['style']],
                     ['title', $input['loom']],
                     ['date', 'LIKE', '%' . $input['month'] . '%'],
                     ['date', 'LIKE', '%' . $input['year'] . '%']
                 ])->get();
+            } else {
+                $fetched_looms = Loom::where([
+                    ['title', $input['loom']],
+                    ['date', 'LIKE', '%' . $input['month'] . '%'],
+                    ['date', 'LIKE', '%' . $input['year'] . '%']
+                ])->get();
             }
 
 
-            if (!($input['beam'])) {
+            if (isset($input['beam'])) {
                 $fetched_looms = Loom::where([
+                    ['beam', $input['beam']],
                     ['title', $input['loom']],
                     ['date', 'LIKE', '%' . $input['month'] . '%'],
                     ['date', 'LIKE', '%' . $input['year'] . '%']
                 ])->get();
             } else {
                 $fetched_looms = Loom::where([
-                    ['beam', $input['beam']],
                     ['title', $input['loom']],
                     ['date', 'LIKE', '%' . $input['month'] . '%'],
                     ['date', 'LIKE', '%' . $input['year'] . '%']

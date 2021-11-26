@@ -34,12 +34,12 @@
                                             <label>Loom</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select class="selectpicker form-control" data-live-search="true" required name="loom"
+                                            <select class="form-control" data-live-search="true" required name="loom"
                                                 id="">
                                                 <option value="" disabled selected>Select Loom</option>
                                                 @foreach ($looms as $key => $value)
 
-                                                    <option data-tokens="{{ $key }}"
+                                                    <option data-tokens="{{ $value }}"
                                                         value="{{ $key }}">{{ $value }}</option>
 
                                                 @endforeach
@@ -49,11 +49,12 @@
                                             <label>Shift</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select name="shift" class="form-control" id="">
-                                                <option value="">All</option>
+                                            <select data-live-search="true" name="shift" class="form-control" id="">
+                                                <option value="" disabled selected>All</option>
                                                 @foreach ($shifts as $key => $value)
 
-                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                    <option data-tokens="{{ $value }}"
+                                                        value="{{ $key }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -64,11 +65,12 @@
                                             <label>Styles</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select name="style" class="form-control" id="">
-                                                <option value="">All</option>
+                                            <select data-live-search="true" name="style" class="form-control" id="">
+                                                <option value="" disabled selected>All</option>
                                                 @foreach ($styles as $key => $value)
 
-                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                    <option data-tokens="{{ $value }}"
+                                                        value="{{ $key }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -79,11 +81,12 @@
                                             <label>Beams</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select name="beam" class="form-control" id="">
-                                                <option value="">All</option>
+                                            <select data-live-search="true" name="beam" class="form-control" id="">
+                                                <option value="" disabled selected>All</option>
                                                 @foreach ($beams as $key => $value)
 
-                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                    <option data-tokens="{{ $value }}"
+                                                        value="{{ $key }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -97,21 +100,21 @@
 
                                         <div class="col-md-8 form-group">
 
-                                            <select name="month" required class="form-control" id="month">
+                                            <select data-live-search="true" name="month" required class="form-control" id="month">
 
-                                                <option value="">Select Month</option>
-                                                <option value="Jan">Jan</option>
-                                                <option value="Feb">Feb</option>
-                                                <option value="March">March</option>
-                                                <option value="April">April</option>
-                                                <option value="May">May</option>
-                                                <option value="Jun">Jne</option>
-                                                <option value="Jul">Juy</option>
-                                                <option value="Aug">Aug</option>
-                                                <option value="Sep">Sep</option>
-                                                <option value="Oct">Oct</option>
-                                                <option value="Nov">Nov</option>
-                                                <option value="Dec">Dec</option>
+                                                <option value="" disabled selected>Select Month</option>
+                                                <option data-tokens="Jan" value="Jan">Jan</option>
+                                                <option data-tokens="Feb" value="Feb">Feb</option>
+                                                <option data-tokens="March" value="March">March</option>
+                                                <option data-tokens="April" value="April">April</option>
+                                                <option data-tokens="May" value="May">May</option>
+                                                <option data-tokens="Jun" value="Jun">Jne</option>
+                                                <option data-tokens="Jul" value="Jul">Juy</option>
+                                                <option data-tokens="Aug" value="Aug">Aug</option>
+                                                <option data-tokens="Sep" value="Sep">Sep</option>
+                                                <option data-tokens="Oct" value="Oct">Oct</option>
+                                                <option data-tokens="Nov" value="Nov">Nov</option>
+                                                <option data-tokens="Dec" value="Dec">Dec</option>
                                             </select>
                                         </div>
 
@@ -123,13 +126,13 @@
 
                                         <div class="col-md-8 form-group">
 
-                                            <select name="year" required class="form-control" id="year">
+                                            <select data-live-search="true" name="year" required class="form-control" id="year">
 
-                                                <option value="">Select Year</option>
-                                                <option value="2021">2020</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2021">2022</option>
-                                                <option value="2021">2023</option>
+                                                <option value="" disabled selected>Select Year</option>
+                                                <option data-tokens="2020" value="2020">2020</option>
+                                                <option data-tokens="2021" value="2021">2021</option>
+                                                <option data-tokens="2022" value="2022">2022</option>
+                                                <option data-tokens="2023" value="2023">2023</option>
                                                 {{-- <option value="Feb">Feb</option>
                                                 <option value="March">March</option>
                                                 <option value="April">April</option>
