@@ -26,7 +26,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'remember_token',
+        'responsive_id',
+        'full_name',
+        'current_plan',
+        'status'
     ];
 
     /**
@@ -48,6 +54,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'status' => 'string',
+
     ];
 
     /**
