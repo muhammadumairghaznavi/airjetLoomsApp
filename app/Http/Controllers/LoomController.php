@@ -7,6 +7,7 @@ use App\Models\Loom;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Session;
 
@@ -42,32 +43,15 @@ class LoomController extends Controller
 
     public function fetch_loom_data()
     {
+        DB::statement("SET SQL_MODE=''");
         $looms = Loom::pluck('title', 'title');
-        $shifts = Loom::pluck('shift', 'shift');
-        $beams = Loom::pluck('beam', 'beam');
-        $styles = Loom::pluck('style', 'style');
-        // $dates = Loom::pluck('date', 'date');
+        $shifts = Loom::groupBy('shift')->pluck('shift', 'shift');
+        $beams = Loom::groupBy('beam')->pluck('beam', 'beam');
+        $styles = Loom::groupBy('style')->pluck('style', 'id');
+        $dates = Loom::groupBy('date')->pluck('date','id');
 
 
-        // $looms = Loom::all();
-        // $loomsData = Loom::all();
-
-
-        // $date = Loom::LoomDate($date);
-
-
-        // $date = Loom::groupBy('date')->get();
-
-        // foreach($dates as $key => $value){
-
-        //     $date = $value;
-        //     $date = Carbon::createFromFormat('M/d/Y', $date);
-        //     $monthName = $date->format('M/Y');
-
-
-        //     // dd($monthName);
-        // }
-        return view('fetch_loom_data', compact('looms', 'shifts', 'styles', 'beams'));
+        return view('fetch_loom_data', compact('looms', 'shifts', 'styles', 'beams', 'dates'));
     }
 
     /**
@@ -88,95 +72,35 @@ class LoomController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        // dd($request->all());
 
-        // dd($input);
+        $fetched_looms = Loom::when(request('loom'), function ($query) use ($request) {
 
-        if (isset($input['fromDate']) && isset($input['toDate'])) {
+            return $query->where('title', $request->loom);
+        })
+            ->when(request('fromDate'), function ($query) use ($request) {
 
-            if (isset($input['shift'])) {
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where([
-                        ['title', $input['loom']],
-                        ['shift', $input['shift']],
-                    ])->get();
-            } else {
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where('title', $input['loom'])->get();
-            }
+                return $query->whereBetween('date', [$request->fromDate, $request->toDate]);
+            })
+            ->when(request('month'), function ($query) use ($request) {
 
-            if (isset($input['style'])) {
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where([
-                        ['title', $input['loom']],
-                        ['style', $input['style']],
-                    ])->get();
-            } else {
-
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where('title', $input['loom'])->get();
-            }
-            if (isset($input['beam'])) {
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where([
-                        ['title', $input['loom']],
-                        ['beam', $input['beam']],
-                    ])->get();
-            } else {
-                $fetched_looms = Loom::whereBetween('date', [$input['fromDate'], $input['toDate']])
-                    ->where('title', $input['loom'])->get();
-            }
-        } else {
-
-            if (isset($input['shift'])) {
-                $fetched_looms = Loom::where([
-                    ['shift', $input['shift']],
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            } else {
-                $fetched_looms = Loom::where([
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            }
-
-
-            if (isset($input['style'])) {
-                $fetched_looms = Loom::where([
-                    ['style', $input['style']],
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            } else {
-                $fetched_looms = Loom::where([
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            }
-
-
-            if (isset($input['beam'])) {
-                $fetched_looms = Loom::where([
-                    ['beam', $input['beam']],
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            } else {
-                $fetched_looms = Loom::where([
-                    ['title', $input['loom']],
-                    ['date', 'LIKE', '%' . $input['month'] . '%'],
-                    ['date', 'LIKE', '%' . $input['year'] . '%']
-                ])->get();
-            }
-        }
-
-        return view('show_looms_data', compact('fetched_looms', 'input'));
+                return $query->where([
+                    ['date', 'LIKE', '%' . request('month') . '%'],
+                    ['date', 'LIKE', '%' . request('year') . '%']
+                ]);
+            })
+            ->when(request('shift'), function ($query) use ($request) {
+                return $query->where('shift', $request->shift);
+            })
+            ->when(request('style'), function ($query) use ($request) {
+                return $query->where('style', $request->style);
+            })
+            ->when(request('beam'), function ($query) use ($request) {
+                return $query->where('beam', $request->beam);
+            })
+            ->get();
+            // ddd($fetched_looms);
+        return view('show_looms_data', compact('fetched_looms'));
     }
 
     /**

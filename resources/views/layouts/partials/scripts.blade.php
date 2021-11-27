@@ -65,11 +65,12 @@ integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifw
 
 
 <script>
-    $('#fromDate').prop('disabled', true);
-    $('#toDate').prop('disabled', true);
+    // $('#fromDate').prop('disabled', true);
+    // $('#toDate').prop('disabled', true);
     $('#byPeriod').change(
         function() {
             if ($(this).is(':checked')) {
+                console.log('salam');
                 $('#month').val('');
                 $('#year').val('');
                 $('#month').prop('disabled', true);

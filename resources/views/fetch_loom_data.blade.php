@@ -34,9 +34,8 @@
                                             <label>Loom</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select class="form-control" data-live-search="true" required name="loom"
-                                                id="">
-                                                <option value="" disabled selected>Select Loom</option>
+                                            <select class="form-control" data-live-search="true" name="loom" id="">
+                                                <option value="" selected>All</option>
                                                 @foreach ($looms as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
@@ -50,7 +49,7 @@
                                         </div>
                                         <div class="col-md-8 form-group">
                                             <select data-live-search="true" name="shift" class="form-control" id="">
-                                                <option value="" disabled selected>All</option>
+                                                <option value="" selected>All</option>
                                                 @foreach ($shifts as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
@@ -66,7 +65,7 @@
                                         </div>
                                         <div class="col-md-8 form-group">
                                             <select data-live-search="true" name="style" class="form-control" id="">
-                                                <option value="" disabled selected>All</option>
+                                                <option value="" selected>All</option>
                                                 @foreach ($styles as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
@@ -82,7 +81,7 @@
                                         </div>
                                         <div class="col-md-8 form-group">
                                             <select data-live-search="true" name="beam" class="form-control" id="">
-                                                <option value="" disabled selected>All</option>
+                                                <option value="" selected>All</option>
                                                 @foreach ($beams as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
@@ -100,9 +99,10 @@
 
                                         <div class="col-md-8 form-group">
 
-                                            <select data-live-search="true" name="month" required class="form-control" id="month">
+                                            <select id="month" data-live-search="true" name="month"
+                                                class="form-control">
 
-                                                <option value="" disabled selected>Select Month</option>
+                                                <option value="" selected>Select Month</option>
                                                 <option data-tokens="Jan" value="Jan">Jan</option>
                                                 <option data-tokens="Feb" value="Feb">Feb</option>
                                                 <option data-tokens="March" value="March">March</option>
@@ -126,9 +126,10 @@
 
                                         <div class="col-md-8 form-group">
 
-                                            <select data-live-search="true" name="year" required class="form-control" id="year">
+                                            <select data-live-search="true" name="year" class="form-control"
+                                                id="year">
 
-                                                <option value="" disabled selected>Select Year</option>
+                                                <option value="" selected>Select Year</option>
                                                 <option data-tokens="2020" value="2020">2020</option>
                                                 <option data-tokens="2021" value="2021">2021</option>
                                                 <option data-tokens="2022" value="2022">2022</option>
@@ -148,28 +149,45 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <input id="byPeriod" type="checkbox">
-                                            <label for="byPeriod">By Period</label>
-
+                                            {{-- <input id="byPeriod" type="checkbox"> --}}
+                                            {{-- <label for="byPeriod">By Period</label> --}}
                                         </div>
-
-
                                         <div class="col-md-8 form-group">
-
                                         </div>
-
                                         <div class="col-md-4">
                                             <label>Select Period</label>
                                         </div>
                                         <div class="col-md-8 form-group">
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
-                                                    <input placeholder="From" name="fromDate" id="fromDate"
-                                                        class="form-control" type="text">
+
+                                                    <select data-live-search="true" name="fromDate"
+                                                        class="form-control" id="fromDate">
+
+                                                        <option selected value="">From</option>
+                                                        @foreach ($dates as $key => $value)
+                                                            <option data-tokens="{{ $value }}"
+                                                                value="{{ $value }}">{{ $value }}
+                                                            </option>
+
+                                                        @endforeach
+
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-6 form-group">
-                                                    <input placeholder="To" name="toDate" id="toDate"
-                                                        class="form-control" type="text">
+
+                                                    <select data-live-search="true" name="toDate" class="form-control"
+                                                        id="toDate">
+
+                                                        <option selected value="">To</option>
+                                                        @foreach ($dates as $key => $value)
+                                                            <option data-tokens="{{ $value }}"
+                                                                value="{{ $value }}">{{ $value }}
+                                                            </option>
+
+                                                        @endforeach
+
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,8 +195,8 @@
 
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Fetch</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            {{-- <button type="reset"
+                                                class="btn btn-light-secondary me-1 mb-1">Reset</button> --}}
                                         </div>
                                     </div>
                                 </div>

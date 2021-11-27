@@ -70,9 +70,9 @@
                                                     <td>{{ $item->style }}</td>
                                                     <td>{{ $item->beam }}</td>
                                                     <td>{{ $item->rpm }}</td>
-                                                    <td>{{ $item->efficiency_in_percentage }}</td>
-                                                    <td>{{ $item->warp_in_times }}</td>
-                                                    <td>{{ $item->weft_in_times }}</td>
+                                                    <td>{{ $item->Effic_in_perc }}</td>
+                                                    <td>{{ $item->Warp_times }}</td>
+                                                    <td>{{ $item->Weft_times }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ route('looms_data.destroy', $item->id) }}">
@@ -89,7 +89,6 @@
                                                                 data-toggle="tooltip" title='Delete'>Delete</button> --}}
 
                                                         </form>
-
                                                     </td>
                                                 </tr>
                                             @endforeach
