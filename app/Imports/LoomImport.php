@@ -5,9 +5,10 @@ namespace App\Imports;
 use App\Models\Loom;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class LoomImport implements ToModel, WithHeadingRow
+class LoomImport implements ToModel, WithHeadingRow, WithUpserts
 
 {
     /**
@@ -19,10 +20,14 @@ class LoomImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // dd($row);
-        return new Loom([
+        $looms  =  new Loom([
+            'id'                                => $row['id'],
             'date'                              => Date::excelToDateTimeObject($row['date'])->format('M/d/Y'),
             'shift'                             => $row['shift'],
             'title'                             => $row['loom'],
+            'style'                             => $row['style'],
+            'warp_count'                             => $row['warp_count'],
+            'weft_count'                             => $row['weft_count'],
             'style'                             => $row['style'],
             'beam'                              => $row['beam'],
             'rpm'                               => $row['rpm'],
@@ -84,6 +89,12 @@ class LoomImport implements ToModel, WithHeadingRow
             'WF2(2)_in_times_per_cmpx'          => $row['wf22_timescmpx'],
 
         ]);
+        // dd($lo);
+        return $looms;
+    }
+    public function uniqueBy()
+    {
+        return 'id';
     }
     // public function headingRow(): int
     // {

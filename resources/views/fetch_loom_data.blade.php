@@ -39,7 +39,7 @@
                                                 @foreach ($looms as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
-                                                        value="{{ $key }}">{{ $value }}</option>
+                                                        value="{{ $value }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -53,7 +53,7 @@
                                                 @foreach ($shifts as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
-                                                        value="{{ $key }}">{{ $value }}</option>
+                                                        value="{{ $value }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -69,7 +69,37 @@
                                                 @foreach ($styles as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
-                                                        value="{{ $key }}">{{ $value }}</option>
+                                                        value="{{ $value }}">{{ $value }}</option>
+
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Warp Counts</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select data-live-search="true" name="warp_count" class="form-control"
+                                                id="">
+                                                <option value="" selected>All</option>
+                                                @foreach ($warp_counts as $key => $value)
+
+                                                    <option data-tokens="{{ $value }}"
+                                                        value="{{ $value }}">{{ $value }}</option>
+
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Weft Counts</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select data-live-search="true" name="weft_count" class="form-control"
+                                                id="">
+                                                <option value="" selected>All</option>
+                                                @foreach ($weft_counts as $key => $value)
+
+                                                    <option data-tokens="{{ $value }}"
+                                                        value="{{ $value }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>
@@ -85,7 +115,7 @@
                                                 @foreach ($beams as $key => $value)
 
                                                     <option data-tokens="{{ $value }}"
-                                                        value="{{ $key }}">{{ $value }}</option>
+                                                        value="{{ $value }}">{{ $value }}</option>
 
                                                 @endforeach
                                             </select>

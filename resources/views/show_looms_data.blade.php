@@ -86,6 +86,38 @@
 
             @endforeach
         </p>
+        <p><b> Warp counts </b>
+            @foreach ($fetched_looms->unique('warp_count') as $item)
+
+                @if ($loop->count > 1)
+
+                    @if ($loop->first)
+
+                        All
+                    @endif
+
+                @else
+                    {{ $item->warp_count }}
+                @endif
+
+            @endforeach
+        </p>
+        <p><b> Weft counts </b>
+            @foreach ($fetched_looms->unique('weft_count') as $item)
+
+                @if ($loop->count > 1)
+
+                    @if ($loop->first)
+
+                        All
+                    @endif
+
+                @else
+                    {{ $item->weft_count }}
+                @endif
+
+            @endforeach
+        </p>
         @if (request('month'))
             <p><b> Month Year</b> {{ request('month') }} - {{ request('year') }}</p>
 
@@ -119,10 +151,10 @@
                     <th>Loom #</th>
                     <th>RPM</th>
                     <th>Efficiency in %</th>
-                    <th>Warp times</th>
-                    <th>Warp in hour</th>
-                    <th>Weft times</th>
-                    <th>Weft in hour</th>
+                    <th>Wp breaks</th>
+                    <th>Wp per hour</th>
+                    <th>Wf breaks</th>
+                    <th>Wf per hour</th>
                 </tr>
             </thead>
             <tbody>

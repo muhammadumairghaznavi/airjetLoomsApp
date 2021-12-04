@@ -14,10 +14,13 @@ class Loom extends Model
 
 
     protected $fillable = [
+        'id',
         'date',
         'shift',
         'title',
         'style',
+        'warp_count',
+        'weft_count',
         'beam',
         'rpm',
         'Effic_in_perc',

@@ -49,9 +49,11 @@ class LoomController extends Controller
         $beams = Loom::groupBy('beam')->pluck('beam', 'beam');
         $styles = Loom::groupBy('style')->pluck('style', 'id');
         $dates = Loom::groupBy('date')->pluck('date','id');
+        $warp_counts = Loom::groupBy('warp_count')->pluck('warp_count', 'id');
+        $weft_counts = Loom::groupBy('weft_count')->pluck('weft_count', 'id');
 
 
-        return view('fetch_loom_data', compact('looms', 'shifts', 'styles', 'beams', 'dates'));
+        return view('fetch_loom_data', compact('looms', 'shifts', 'styles', 'beams', 'dates', 'warp_counts', 'weft_counts'));
     }
 
     /**
@@ -94,6 +96,14 @@ class LoomController extends Controller
             })
             ->when(request('style'), function ($query) use ($request) {
                 return $query->where('style', $request->style);
+            })
+            ->when(request('warp_count'), function($query) use ($request){
+                return $query->where('warp_count', $request->warp_count);
+            })
+            ->when(request('weft_count'), function($query) use ($request){
+                // dd('warp_count');
+
+                return $query->where('weft_count', $request->weft_count);
             })
             ->when(request('beam'), function ($query) use ($request) {
                 return $query->where('beam', $request->beam);
