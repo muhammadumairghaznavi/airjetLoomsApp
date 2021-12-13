@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\LoomController;
+use App\Models\Loom;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('fetch_loom_data', [LoomController::class, 'fetch_loom_data'])->name('fetch_loom_data');
+
+    Route::get('get_count_wise_shed_report', function () {
+        DB::statement("SET SQL_MODE=''");
+
+        $dates = Loom::groupBy('date')->pluck('date','id');
+
+        return view('looms.count_wise_shed_report', compact('dates'));
+
+    })->name('get_count_wise_shed_report');
+    Route::post('count_wise_shed_report', [LoomController::class, 'count_wise_shed_report'])->name('count_wise_shed_report');
 
     Route::get('howToUpload', function () {
         return view('howToUpload');

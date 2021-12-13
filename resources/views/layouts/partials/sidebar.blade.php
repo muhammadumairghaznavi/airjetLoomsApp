@@ -9,4 +9,9 @@
 
     <x-maz-sidebar-item name="Fetch Loom Data" :link="route('fetch_loom_data')" icon="bi bi-grid-fill"></x-maz-sidebar-item>
 
+
+    <x-maz-sidebar-item name="Count Wise Shed Effi.Report" :link="route('get_count_wise_shed_report')" icon="bi bi-grid-fill"></x-maz-sidebar-item>
+
+
+
 </x-maz-sidebar>
